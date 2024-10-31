@@ -1,6 +1,6 @@
 Work in progress repo to use active learning approach to train model based on Surfperch
 
-github: https://github.com/BenUCL/surfperch/tree/surfperch
+github: https://github.com/BenUCL/surfperch/tree/surfperch  
 DOI: https://doi.org/10.48550/arXiv.2404.16436
 
 # Installation
