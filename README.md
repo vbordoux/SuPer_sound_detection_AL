@@ -4,8 +4,8 @@ github: https://github.com/BenUCL/surfperch/tree/surfperch
 DOI: https://doi.org/10.48550/arXiv.2404.16436
 
 # Installation
-- Clone this repository in your local environment
-- Create an environment with Python version >= 3.10
+- Clone this repository on your computer
+- Create a virtual environment with Python version >= 3.10
 - Activate the environment if needed
 - Install dependencies for Perch model:
  pip install git+https://github.com/google-research/perch.git@e27e95344c84601759d4d881289a1c2b53697fa6
