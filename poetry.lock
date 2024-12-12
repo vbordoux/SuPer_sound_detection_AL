@@ -599,6 +599,36 @@ files = [
 ]
 
 [[package]]
+name = "chirp"
+version = "0.1.0"
+description = "Tooling for agile modeling on large machine perception embedding databases."
+optional = false
+python-versions = ">=3.10,<3.12"
+files = []
+develop = false
+
+[package.dependencies]
+absl-py = "^1.4.0"
+etils = {version = "^1.5.0", extras = ["epath"]}
+imageio = "^2.5.0"
+ipywidgets = "^8.1"
+librosa = "^0.10.1"
+matplotlib = "^3.6.1"
+ml-collections = "^0.1.1"
+notebook = "^7.0.4"
+numpy = "^1.24.0"
+pandas = {version = "^2.1.1", extras = ["gcp"]}
+tensorflow = "^2.16"
+tensorflow-hub = "^0.16.0"
+usearch = "^2.15"
+
+[package.source]
+type = "git"
+url = "https://github.com/cparcerisas/perch.git"
+reference = "HEAD"
+resolved_reference = "4ed8986122c6c0bfee9e88e284be4a894292f474"
+
+[[package]]
 name = "colorama"
 version = "0.4.6"
 description = "Cross-platform colored terminal text."
@@ -1514,36 +1544,6 @@ files = [
 
 [package.dependencies]
 numpy = ">=1.19.3"
-
-[[package]]
-name = "hoplite"
-version = "0.1.0"
-description = "Tooling for agile modeling on large machine perception embedding databases."
-optional = false
-python-versions = ">=3.10,<3.12"
-files = []
-develop = false
-
-[package.dependencies]
-absl-py = "^1.4.0"
-etils = {version = "^1.5.0", extras = ["epath"]}
-imageio = "^2.5.0"
-ipywidgets = "^8.1"
-librosa = "^0.10.1"
-matplotlib = "^3.6.1"
-ml-collections = "^0.1.1"
-notebook = "^7.0.4"
-numpy = "^1.24.0"
-pandas = {version = "^2.1.1", extras = ["gcp"]}
-tensorflow = "^2.16"
-tensorflow-hub = "^0.16.0"
-usearch = "^2.15"
-
-[package.source]
-type = "git"
-url = "https://github.com/google-research/perch.git"
-reference = "HEAD"
-resolved_reference = "9a40855b5376b9407c8d09c6783f185af1909e41"
 
 [[package]]
 name = "httpcore"
@@ -5376,4 +5376,4 @@ type = ["pytest-mypy"]
 [metadata]
 lock-version = "2.0"
 python-versions = ">=3.10,<3.12"
-content-hash = "d497d0c7ca3fcf9258fcfd3fa21768db96c6699cab5d33606726a713be55eddc"
+content-hash = "22c95875b4737d46937e1427a6c871319132448a2c046ca9b4b317f7fbf4d08d"
