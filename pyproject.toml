@@ -12,7 +12,7 @@ package-mode = false
 # Other dependency groups will not be installed by pip, however.
 # See: https://python-poetry.org/docs/managing-dependencies/#dependency-groups
 python = ">=3.10,<3.12"
-chirp = {git = "https://github.com/cparcerisas/surfperch.git", develop = false}
+hoplite = {git = "https://github.com/google-research/perch.git", develop = false}
 
 [build-system]
 requires = ["poetry-core>=1.5.0"]
