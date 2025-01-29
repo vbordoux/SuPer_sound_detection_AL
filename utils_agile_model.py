@@ -29,6 +29,8 @@ class ClassifierMetrics:
   test_labels: np.ndarray
   test_auc_roc: float
 
+
+
 def train_embedding_model(
     model: tf.keras.Model,
     merged: data_lib.MergedDataset,
@@ -41,10 +43,14 @@ def train_embedding_model(
     exclude_eval_classes: Sequence[int] = (),
 ) -> ClassifierMetrics:
   """Trains a classification model over embeddings and labels."""
+
+  # Create training and test splits
   train_locs, test_locs, _ = merged.create_random_train_test_split(
       train_ratio, train_examples_per_class, random_seed,
       exclude_eval_classes=exclude_eval_classes,
   )
+
+  # Train the model and return metrics 
   test_metrics = train_from_locs(
       model=model,
       merged=merged,
@@ -55,6 +61,8 @@ def train_embedding_model(
       learning_rate=learning_rate,
   )
   return test_metrics
+
+
 
 def train_from_locs(
     model: tf.keras.Model,
@@ -106,3 +114,28 @@ def train_from_locs(
       test_labels,
       auc_roc,
   )
+
+
+def train_from_index(
+    model: tf.keras.Model,
+    merged: data_lib.MergedDataset,
+    num_epochs: int,
+    train_locs: Sequence[int],
+    test_locs: Sequence[int],
+    batch_size: int,
+    learning_rate: float | None = None,
+    exclude_eval_classes: Sequence[int] = (),
+) -> ClassifierMetrics:
+  """Trains a classification model over embeddings and labels."""
+
+  # Train the model and return metrics 
+  test_metrics = train_from_locs(
+      model=model,
+      merged=merged,
+      train_locs=train_locs,
+      test_locs=test_locs,
+      num_epochs=num_epochs,
+      batch_size=batch_size,
+      learning_rate=learning_rate,
+  )
+  return test_metrics
