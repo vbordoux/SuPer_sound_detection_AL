@@ -7,13 +7,14 @@ DOI: https://doi.org/10.48550/arXiv.2404.16436
 - Clone this repository on your computer
 - Create a virtual environment with Python version >= 3.10
 - Activate the environment if needed
-- Install dependencies for Perch model:  
- pip install git+https://github.com/google-research/perch.git@e27e95344c84601759d4d881289a1c2b53697fa6
-- Reinstall tensorflow  
- pip uninstall tensorflow  
- pip install tensorflow==2.15.0  
-#(you might want to install a version supporting GPU and compatible with your CUDA and cuDNN versions instead)
- restart kernel if needed (if import tensorflow returns an error)
+- Install dependencies for this project by running 
+
+```bash
+python -m pip install --upgrade pip
+poetry install
+```
+So far this has only been tested on Ubuntu machines. 
+
 - Open "SurfPerch_active_learning.ipynb" & select the kernel of your environment
 - Provide your data to get started
 
