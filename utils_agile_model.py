@@ -139,3 +139,7 @@ def train_from_index(
       learning_rate=learning_rate,
   )
   return test_metrics
+
+
+
+# TODO(valentinB) Function for model selection
