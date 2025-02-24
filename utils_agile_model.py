@@ -48,14 +48,10 @@ def train_embedding_model(
     exclude_eval_classes: Sequence[int] = (),
 ) -> ClassifierMetrics:
   """Trains a classification model over embeddings and labels."""
-
-  # Create training and test splits
   train_locs, test_locs, _ = merged.create_random_train_test_split(
       train_ratio, train_examples_per_class, random_seed,
       exclude_eval_classes=exclude_eval_classes,
   )
-
-  # Train the model and return metrics 
   test_metrics = train_from_locs(
       model=model,
       merged=merged,
@@ -67,6 +63,58 @@ def train_embedding_model(
   )
   return test_metrics
 
+
+
+# def BROKEN_train_from_locs(
+#     model: tf.keras.Model,
+#     merged: data_lib.MergedDataset,
+#     train_locs: Sequence[int],
+#     test_locs: Sequence[int],
+#     num_epochs: int,
+#     batch_size: int,
+#     learning_rate: float | None = None,
+#     use_bce_loss: bool = True,
+# ) -> ClassifierMetrics:
+#   """Trains a classification model over embeddings and labels."""
+#   if use_bce_loss:
+#     loss = tf.keras.losses.BinaryCrossentropy(from_logits=True)
+#   else:
+#     loss = tf.keras.losses.CategoricalCrossentropy(from_logits=True)
+#   model.compile(
+#       optimizer=tf.keras.optimizers.Adam(learning_rate=learning_rate),
+#       loss=loss,
+#       metrics=[
+#           tf.keras.metrics.Precision(top_k=1, name='top1prec'),
+#           tf.keras.metrics.AUC(
+#               curve='ROC', name='auc', from_logits=True, multi_label=True
+#           ),
+#           tf.keras.metrics.RecallAtPrecision(0.9, name='recall0.9'),
+#       ],
+#   )
+
+#   train_ds = merged.create_keras_dataset(train_locs, True, batch_size)
+#   test_ds = merged.create_keras_dataset(test_locs, False, batch_size)
+
+#   model.fit(train_ds, epochs=num_epochs, verbose=0)
+
+#   # Compute overall metrics to avoid online approximation error in Keras.
+#   test_logits = model.predict(test_ds, verbose=0, batch_size=8)
+#   test_labels_hot = merged.data['label_hot'][test_locs]
+#   test_labels = merged.data['label'][test_locs]
+
+#   # Create a dictionary of test logits for each class.
+#   test_logits_dict = {}
+#   for k in set(test_labels):
+#     lbl_locs = np.argwhere(test_labels == k)[:, 0]
+#     test_logits_dict[k] = test_logits[lbl_locs, k]
+
+#   auc_roc = metrics.roc_auc(test_logits, test_labels_hot)
+
+#   return ClassifierMetrics(
+#       test_logits,
+#       test_labels,
+#       auc_roc,
+#   )
 
 
 def train_from_locs(
@@ -92,19 +140,35 @@ def train_from_locs(
           tf.keras.metrics.AUC(
               curve='ROC', name='auc', from_logits=True, multi_label=True
           ),
-          tf.keras.metrics.RecallAtPrecision(0.9, name='recall0.9'),
       ],
   )
 
-  train_ds = merged.create_keras_dataset(train_locs, True, batch_size)
-  test_ds = merged.create_keras_dataset(test_locs, False, batch_size)
+  train_features = merged.data['embeddings'][train_locs]
+  train_labels = merged.data['label_hot'][train_locs]
 
-  model.fit(train_ds, epochs=num_epochs, verbose=0)
+  model.fit(
+      train_features,
+      train_labels,
+      epochs=num_epochs,
+      verbose=0,
+      batch_size=batch_size,
+  )
 
   # Compute overall metrics to avoid online approximation error in Keras.
-  test_logits = model.predict(test_ds, verbose=0, batch_size=8)
+  test_features = merged.data['embeddings'][test_locs]
+  test_logits = model.predict(test_features, verbose=0, batch_size=8)
   test_labels_hot = merged.data['label_hot'][test_locs]
   test_labels = merged.data['label'][test_locs]
+
+  # Create a dictionary of test logits for each class.
+  test_logits_dict = {}
+  for k in set(test_labels):
+    lbl_locs = np.argwhere(test_labels == k)[:, 0]
+    test_logits_dict[k] = test_logits[lbl_locs, k]
+
+  top_logit_idxs = np.argmax(test_logits, axis=1)
+  top1acc = np.mean(test_labels == top_logit_idxs)
+  recall = -1.0
 
   # Create a dictionary of test logits for each class.
   test_logits_dict = {}
@@ -120,6 +184,18 @@ def train_from_locs(
       auc_roc,
   )
 
+#   cmap_value = metrics.cmap(test_logits, test_labels_hot)['macro']
+#   auc_roc = metrics.roc_auc(test_logits, test_labels_hot)
+#   return ClassifierMetrics(
+#       top1acc,
+#       auc_roc['macro'],
+#       recall,
+#       cmap_value,
+#       auc_roc['individual'],
+#       test_logits_dict,
+#   )
+
+
 
 def train_from_index(
     model: tf.keras.Model,
@@ -129,7 +205,6 @@ def train_from_index(
     test_locs: Sequence[int],
     batch_size: int,
     learning_rate: float | None = None,
-    exclude_eval_classes: Sequence[int] = (),
 ) -> ClassifierMetrics:
   """Trains a classification model over embeddings and labels."""
 

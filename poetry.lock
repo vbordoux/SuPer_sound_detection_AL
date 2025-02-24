@@ -767,8 +767,8 @@ usearch = "^2.15"
 [package.source]
 type = "git"
 url = "https://github.com/cparcerisas/perch.git"
-reference = "fix/tensorflow_version_birdnet"
-resolved_reference = "3739af0c6d3eaf08370ae46e047a2d5adebb8a9d"
+reference = "HEAD"
+resolved_reference = "e553fbefc8ed1c666c7dd9a7cb68487bdd23d44e"
 
 [[package]]
 name = "cloudpickle"
@@ -7004,4 +7004,4 @@ cffi = ["cffi (>=1.11)"]
 [metadata]
 lock-version = "2.1"
 python-versions = ">=3.10,<3.12"
-content-hash = "534ae8125d47842fff9d50afc479293ea0d9b9a310cba1505a883d33b5c11e1d"
+content-hash = "ba06ce4191c2ba9bda968436bb7017f93bc93de6867bb0b6fbb6d4f1581839ff"
