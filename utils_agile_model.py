@@ -26,7 +26,7 @@ from ml_collections import config_dict
 from chirp.inference import embed_lib
 import pandas as pd
 import os
-
+import json
 
 @dataclasses.dataclass
 class ClassifierMetrics:
@@ -63,58 +63,6 @@ def train_embedding_model(
   )
   return test_metrics
 
-
-
-# def BROKEN_train_from_locs(
-#     model: tf.keras.Model,
-#     merged: data_lib.MergedDataset,
-#     train_locs: Sequence[int],
-#     test_locs: Sequence[int],
-#     num_epochs: int,
-#     batch_size: int,
-#     learning_rate: float | None = None,
-#     use_bce_loss: bool = True,
-# ) -> ClassifierMetrics:
-#   """Trains a classification model over embeddings and labels."""
-#   if use_bce_loss:
-#     loss = tf.keras.losses.BinaryCrossentropy(from_logits=True)
-#   else:
-#     loss = tf.keras.losses.CategoricalCrossentropy(from_logits=True)
-#   model.compile(
-#       optimizer=tf.keras.optimizers.Adam(learning_rate=learning_rate),
-#       loss=loss,
-#       metrics=[
-#           tf.keras.metrics.Precision(top_k=1, name='top1prec'),
-#           tf.keras.metrics.AUC(
-#               curve='ROC', name='auc', from_logits=True, multi_label=True
-#           ),
-#           tf.keras.metrics.RecallAtPrecision(0.9, name='recall0.9'),
-#       ],
-#   )
-
-#   train_ds = merged.create_keras_dataset(train_locs, True, batch_size)
-#   test_ds = merged.create_keras_dataset(test_locs, False, batch_size)
-
-#   model.fit(train_ds, epochs=num_epochs, verbose=0)
-
-#   # Compute overall metrics to avoid online approximation error in Keras.
-#   test_logits = model.predict(test_ds, verbose=0, batch_size=8)
-#   test_labels_hot = merged.data['label_hot'][test_locs]
-#   test_labels = merged.data['label'][test_locs]
-
-#   # Create a dictionary of test logits for each class.
-#   test_logits_dict = {}
-#   for k in set(test_labels):
-#     lbl_locs = np.argwhere(test_labels == k)[:, 0]
-#     test_logits_dict[k] = test_logits[lbl_locs, k]
-
-#   auc_roc = metrics.roc_auc(test_logits, test_labels_hot)
-
-#   return ClassifierMetrics(
-#       test_logits,
-#       test_labels,
-#       auc_roc,
-#   )
 
 
 def train_from_locs(
@@ -166,10 +114,6 @@ def train_from_locs(
     lbl_locs = np.argwhere(test_labels == k)[:, 0]
     test_logits_dict[k] = test_logits[lbl_locs, k]
 
-  top_logit_idxs = np.argmax(test_logits, axis=1)
-  top1acc = np.mean(test_labels == top_logit_idxs)
-  recall = -1.0
-
   # Create a dictionary of test logits for each class.
   test_logits_dict = {}
   for k in set(test_labels):
@@ -183,17 +127,6 @@ def train_from_locs(
       test_labels,
       auc_roc,
   )
-
-#   cmap_value = metrics.cmap(test_logits, test_labels_hot)['macro']
-#   auc_roc = metrics.roc_auc(test_logits, test_labels_hot)
-#   return ClassifierMetrics(
-#       top1acc,
-#       auc_roc['macro'],
-#       recall,
-#       cmap_value,
-#       auc_roc['individual'],
-#       test_logits_dict,
-#   )
 
 
 
@@ -342,3 +275,4 @@ def eval_to_Raven(prediction_file, wind_dur, keep_only_call=True, freq_bands=[0,
             print("Could not save the annotations in a csv file:", e)
 
     print("Raven files saved at:", raven_dir)
+
