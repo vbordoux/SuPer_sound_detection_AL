@@ -20,13 +20,13 @@ from typing import Sequence
 
 from chirp.inference.classify import data_lib
 from chirp.models import metrics
+from chirp.inference.search import display
 import numpy as np
 import tensorflow as tf
 from ml_collections import config_dict
 from chirp.inference import embed_lib
 import pandas as pd
 import os
-import json
 
 @dataclasses.dataclass
 class ClassifierMetrics:
@@ -276,3 +276,19 @@ def eval_to_Raven(prediction_file, wind_dur, keep_only_call=True, freq_bands=[0,
 
     print("Raven files saved at:", raven_dir)
 
+
+# Not used anymore
+def check_prediction(df_chunks_list, idx, model, sample_rate, embed_fn, display_plot=False):
+    '''
+    Displays the audio, the melspectrogram and the prediction of the model for checking
+    '''
+    output = embed_fn.embedding_model.embed(df_chunks_list.loc[idx].Audio)
+    emb_shape = output.embeddings.shape
+    flat_emb = tf.reshape(output.embeddings, [-1, emb_shape[-1]])
+    logit = model(flat_emb)
+    prob = tf.nn.sigmoid(logit)
+    assert (flat_emb[0].numpy() == df_chunks_list['Embedding'].iloc[idx]).all()
+    print("Proba = ", prob.numpy())
+    print(f"Label {df_chunks_list['Label'].iloc[idx]}, prediction {df_chunks_list['Prediction'].iloc[idx]}")
+    if display_plot:
+        display.plot_audio_melspec(df_chunks_list['Audio'].iloc[0], sample_rate)
