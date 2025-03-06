@@ -1,8 +1,8 @@
 {
-    "working_repo": "./",
-    "sample_data_folder": "eval_texel Data/",
-    "output_directory": "eval_texel Outputs/",
-    "dataset_folder": "september 2024/",
+    "working_repo": "/mnt/fscompute_shared/agile_modeling/experiments_paper/",
+    "sample_data_folder": "dataset/",
+    "output_directory": "output/",
+    "dataset_folder": "grafton_deployment/",
     "model_folder": "models/",
     "model_name": "surfperch"
   }
