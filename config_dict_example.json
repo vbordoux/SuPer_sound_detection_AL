@@ -5,7 +5,7 @@
     "deployment_folder": "september 2024/",
     "embedding_models_folder": "models/",
     "model_name": "surfperch",
-    "experiment_name": "dataset_expnbr_model_date.json",
+    "experiment_name": "dataset_expnbr_model_date",
     "sound_name": "fishA",
     "raven_annotation_column": "Type"
   }
