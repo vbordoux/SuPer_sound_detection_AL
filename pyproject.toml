@@ -13,7 +13,7 @@ package-mode = false
 # See: https://python-poetry.org/docs/managing-dependencies/#dependency-groups
 python = ">=3.10,<3.12"
 chirp = {git = "https://github.com/cparcerisas/perch.git", develop = false}
-jax = {extras = ["cuda12-pip"], version = "^0.4.36"}
+jax = {extras = ["cuda12-pip"], version = ">0.4.36, <0.4.38"}
 apache-beam = {extras = ["gpc"], version = "^2.61.0"}
 flax = "^0.10.2"
 

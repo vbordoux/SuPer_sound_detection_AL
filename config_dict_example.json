@@ -4,6 +4,8 @@
     "output_directory": "eval_texel Outputs/",
     "deployment_folder": "september 2024/",
     "embedding_models_folder": "models/",
-    "model_name": "birdnet",
-    "experiment_name": "texel_exp1_birdnet_20250307.json"
+    "model_name": "surfperch",
+    "experiment_name": "dataset_expnbr_model_date.json",
+    "sound_name": "fishA",
+    "raven_annotation_column": "Type"
   }
