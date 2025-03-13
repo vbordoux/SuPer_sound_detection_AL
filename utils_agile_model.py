@@ -292,3 +292,4 @@ def check_prediction(df_chunks_list, idx, model, sample_rate, embed_fn, display_
     print(f"Label {df_chunks_list['Label'].iloc[idx]}, prediction {df_chunks_list['Prediction'].iloc[idx]}")
     if display_plot:
         display.plot_audio_melspec(df_chunks_list['Audio'].iloc[0], sample_rate)
+
