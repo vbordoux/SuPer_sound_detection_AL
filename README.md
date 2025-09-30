@@ -27,19 +27,19 @@ The code was developed and tested on Linux computers only.
 - Run agile_modeling_training.ipynb
 
 # Folder structure
-.
+.  
 ├── poetry.lock  
 ├── pyproject.toml  
 ├── utils_agile_model.py  
 ├── .gitignore  
 ├── README.md  
 ├── dataset_name Data  
-│   └── deployment_name  
-│       ├── annotations  
-│       ├── raw_audio  
-│       ├── ref_sound  
-│       │   ├── target_sound_name  
-│       └── test_set  
+│&emsp;&emsp;└── deployment_name  
+│&emsp;&emsp;└── annotations  
+│&emsp;&emsp;└── raw_audio  
+│&emsp;&emsp;└── ref_sound  
+│&emsp;&emsp;│&emsp;&emsp;└──target_sound_name  
+│&emsp;&emsp;└── test_set  
 ├── dataset_name Outputs  
 ├── agile_modeling_training.ipynb  
 ├── config_dict_example.json  
@@ -48,17 +48,17 @@ The code was developed and tested on Linux computers only.
 ├── experiments_script.ipynb  
 ├── figures_results_experiment.ipynb  
 ├── models  
-|   ├── BirdNET-model  
-|   |   ├── BirdNET_GLOBAL_6K_V2.4_Model_FP32.tflite  
-|   ├── Perch-model  
-|   |   ├── assets  
-|   |   ├── info_model  
-|   |   ├── saved_model.pb  
-|   |   ├── variables  
-|   ├── SurfPerch-model  
-|   |   ├── assets  
-|   |   ├── info_model  
-|   |   ├── saved_model.pb  
-|   |   ├── variables  
+|&emsp;&emsp;└── BirdNET-model  
+|&emsp;&emsp;|&emsp;&emsp;└── BirdNET_GLOBAL_6K_V2.4_Model_FP32.tflite  
+|&emsp;&emsp;└── Perch-model  
+|&emsp;&emsp;|&emsp;&emsp;└── assets  
+|&emsp;&emsp;|&emsp;&emsp;└── info_model  
+|&emsp;&emsp;|&emsp;&emsp;└── saved_model.pb  
+|&emsp;&emsp;|&emsp;&emsp;└── variables  
+|&emsp;&emsp;├── SurfPerch-model  
+|&emsp;&emsp;|&emsp;&emsp;└── assets  
+|&emsp;&emsp;|&emsp;&emsp;└── info_model  
+|&emsp;&emsp;|&emsp;&emsp;└── saved_model.pb  
+|&emsp;&emsp;|&emsp;&emsp;└── variables  
 
 
