@@ -28,37 +28,37 @@ The code was developed and tested on Linux computers only.
 
 # Folder structure
 .
-├── poetry.lock
-├── pyproject.toml
-├── utils_agile_model.py
-├── .gitignore
-├── README.md
-├── dataset_name Data
-│   └── deployment_name
-│       ├── annotations
-│       ├── raw_audio
-│       ├── ref_sound
-│       │   ├── target_sound_name
-│       └── test_set
-├── dataset_name Outputs
-├── agile_modeling_training.ipynb
-├── config_dict_example.json
-├── create_embeddings.ipynb
-├── create_test_set_data.ipynb
-├── experiments_script.ipynb
-├── figures_results_experiment.ipynb
-├── models
-|   ├── BirdNET-model
-|   |   ├── BirdNET_GLOBAL_6K_V2.4_Model_FP32.tflite
-|   ├── Perch-model
-|   |   ├── assets
-|   |   ├── info_model
-|   |   ├── saved_model.pb
-|   |   ├── variables
-|   ├── SurfPerch-model
-|   |   ├── assets
-|   |   ├── info_model
-|   |   ├── saved_model.pb
-|   |   ├── variables
+├── poetry.lock  
+├── pyproject.toml  
+├── utils_agile_model.py  
+├── .gitignore  
+├── README.md  
+├── dataset_name Data  
+│   └── deployment_name  
+│       ├── annotations  
+│       ├── raw_audio  
+│       ├── ref_sound  
+│       │   ├── target_sound_name  
+│       └── test_set  
+├── dataset_name Outputs  
+├── agile_modeling_training.ipynb  
+├── config_dict_example.json  
+├── create_embeddings.ipynb  
+├── create_test_set_data.ipynb  
+├── experiments_script.ipynb  
+├── figures_results_experiment.ipynb  
+├── models  
+|   ├── BirdNET-model  
+|   |   ├── BirdNET_GLOBAL_6K_V2.4_Model_FP32.tflite  
+|   ├── Perch-model  
+|   |   ├── assets  
+|   |   ├── info_model  
+|   |   ├── saved_model.pb  
+|   |   ├── variables  
+|   ├── SurfPerch-model  
+|   |   ├── assets  
+|   |   ├── info_model  
+|   |   ├── saved_model.pb  
+|   |   ├── variables  
 
 
