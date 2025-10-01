@@ -187,6 +187,14 @@ def choose_embedding_model(model_name, models_folder_path="./models/"):
         model_config.sample_rate = 32000
         model_config.model_path = models_folder_path + 'Perch-model/'
 
+    # Perch V2
+    elif model_name.lower() == 'perch_v2':
+        embed_fn_config.model_key = 'taxonomy_model_tf'
+        model_config.window_size_s = 5.0
+        model_config.hop_size_s = 5.0
+        model_config.sample_rate = 32000
+        model_config.model_path = models_folder_path + 'perch_v2/'
+
     # BirdNET
     elif model_name.lower() == 'birdnet':
         embed_fn_config.model_key = 'birdnet'
