@@ -1,48 +1,64 @@
-Work in progress repo to use active learning approach to train model based on Surfperch
+Code used for the experiments of the manuscript "Rapid Fish Sound Detection Using Human-in-The-Loop Active Learning" Bordoux et al. 2025
+Preprint available here: https://papers.ssrn.com/sol3/papers.cfm?abstract_id=5403106
 
-github: https://github.com/BenUCL/surfperch/tree/surfperch  
-DOI: https://doi.org/10.48550/arXiv.2404.16436
+The code is mainly based on the development done by Perch team:
+https://github.com/google-research/perch
+Agile Modeling, the method used in this repository is published in Dumoulin et al. (2025), here:  https://arxiv.org/abs/2505.03071
+Please cite appropriately upon reuse.
 
 # Installation
 - Clone this repository on your computer
 - Create a virtual environment with Python version >= 3.10
 - Activate the environment if needed
-- Install dependencies for this project by running 
+- Install dependencies for this project by running (require poetry to be installed):
 
 ```bash
 python -m pip install --upgrade pip
 poetry install
 ```
-So far this has only been tested on Ubuntu machines. 
+The code was developed and tested on Linux computers only.
 
-- Open "SurfPerch_active_learning.ipynb" & select the kernel of your environment
-- Provide your data to get started
+# Running agile modeling on personal data
+- The tree view bellow explains how the project folder can be organised to facilitate reuse of the scripts
+- Place audio files in dataset_name Data/deployment_name/raw_audio
+- Place the target sound in dataset_name Data/deployment_name/ref_sound/target_sound_name/ (one folder per sound type)
+- Create config_dict.json based on config_dict_example.json with the correct path, name, and model
+- Run create_embeddings.ipynb (only once, GPU recommended for Perch and Surfperch)
+- Run agile_modeling_training.ipynb
 
-# Getting started
-It might be easier to start with the colab notebook in the orginal repository with more detailled instructions and data provided:
-https://colab.research.google.com/github/BenUCL/surfperch/blob/surfperch/SurfPerch_Demo_with_Calling_in_Our_Corals.ipynb#scrollTo=c-iKkbImw_I_
-
-# Working on personal data
-Minimal running instructions are in the jupyter notebook "SurfPerch_active_learning.ipynb"
-
-- The notebook is made to use the architecture of folder provided in the github repository and is easier if reproduced
-
+# Folder structure
+.  
+├── poetry.lock  
+├── pyproject.toml  
+├── utils_agile_model.py  
+├── .gitignore  
 ├── README.md  
-├── SurfPerch_active_learning.ipynb  
-├── [location_name Data]  
-│   ├── [deployment_name]  
-│   │   ├── raw_audio  
-│   │       └── all_wav_files_here  
-│   │   └── ref_sound  
-│   │       ├── [sound1_name]  
-│   │       │   └── sound1.wav  
-│   │       └── [sound2_name]  
-│   │           └── sound2.wav  
-│   └── SurfPerch-model  
-│       ...  
-└── [location_name Outputs]  
-
-
-- Once wav files are in the raw_audio folder and at least one target sound is provided in ref_sound, the notebook can be use to train a model on this sound
+├── dataset_name Data  
+│&emsp;&emsp;└── deployment_name  
+│&emsp;&emsp;└── annotations  
+│&emsp;&emsp;└── raw_audio  
+│&emsp;&emsp;└── ref_sound  
+│&emsp;&emsp;│&emsp;&emsp;└──target_sound_name  
+│&emsp;&emsp;└── test_set  
+├── dataset_name Outputs  
+├── agile_modeling_training.ipynb  
+├── config_dict_example.json  
+├── create_embeddings.ipynb  
+├── create_test_set_data.ipynb  
+├── experiments_script.ipynb  
+├── figures_results_experiment.ipynb  
+├── models  
+|&emsp;&emsp;└── BirdNET-model  
+|&emsp;&emsp;|&emsp;&emsp;└── BirdNET_GLOBAL_6K_V2.4_Model_FP32.tflite  
+|&emsp;&emsp;└── Perch-model  
+|&emsp;&emsp;|&emsp;&emsp;└── assets  
+|&emsp;&emsp;|&emsp;&emsp;└── info_model  
+|&emsp;&emsp;|&emsp;&emsp;└── saved_model.pb  
+|&emsp;&emsp;|&emsp;&emsp;└── variables  
+|&emsp;&emsp;├── SurfPerch-model  
+|&emsp;&emsp;|&emsp;&emsp;└── assets  
+|&emsp;&emsp;|&emsp;&emsp;└── info_model  
+|&emsp;&emsp;|&emsp;&emsp;└── saved_model.pb  
+|&emsp;&emsp;|&emsp;&emsp;└── variables  
 
 
